@@ -2,8 +2,6 @@
 
 ## Code
 
----
-
 ### **Hello ${name}**
 ```c
 #include <stdio.h>
@@ -15,11 +13,13 @@ int main()
 }
 ```
 
+---
 
 ### **Random Encryption**
 The flag is in the code
 > flag{n0t_that_r4ndom}
 
+---
 
 ### **Random Encryption Fixed**
 After analyzing the code I noticed some things:
@@ -52,6 +52,7 @@ print(flag)
 ```
 > flag{}
 
+---
 
 ### **We need an emulator**
 To solve this problem all we had to do was build an emulator to read the specified language and run the file they gave us starting the TRX register with the value `GED\x03hG\x15&Ka =;\x0c\x1a31o*5M`

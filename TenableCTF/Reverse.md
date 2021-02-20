@@ -2,8 +2,6 @@
 
 ## Reverse Engineering
 
----
-
 ### **The only one you will ever need**
 Run command:
 ```

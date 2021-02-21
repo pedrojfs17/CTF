@@ -7,4 +7,4 @@ Run command:
 ```
 strings a.out
 ```
-> flag{}
+> flag{str1ngs_FTW}

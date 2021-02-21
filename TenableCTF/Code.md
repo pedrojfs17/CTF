@@ -50,7 +50,7 @@ for i in range(0, flagLength):
 
 print(flag)
 ```
-> flag{}
+> flag{Oppsie_LULZ_fixed}
 
 ---
 
@@ -58,6 +58,44 @@ print(flag)
 To solve this problem all we had to do was build an emulator to read the specified language and run the file they gave us starting the TRX register with the value `GED\x03hG\x15&Ka =;\x0c\x1a31o*5M`
 Emulator in python:
 ```python
-*emulator*
+f = open("Crypto.asm", "r")
+
+ops = f.readlines()
+ops = [x.strip() for x in ops] 
+
+contexto = {
+    'TRX': b"GED\x03hG\x15&Ka =;\x0c\x1a31o*5M",
+    'DRX': b""
+}
+
+def sxor(s1,s2):
+    max_len = max(len(s1), len(s2))
+    s1 += b'\0' * (max_len - len(s1))
+    s2 += b'\0' * (max_len - len(s2))
+    return bytes(x ^ y for x, y in zip(s1, s2))
+
+def mov(destination, source):
+    if (source == b'TRX' or source == b'DRX'):
+        contexto[destination] = contexto[source.decode()]
+    else:
+        contexto[destination] = source
+
+def reverse(destination):
+    contexto[destination] = contexto[destination][::-1]
+
+def op_xor(destination, source):
+    contexto[destination] = sxor(contexto[destination], contexto[source])
+
+for op in ops:
+    l = op.split(' ')
+    
+    if (l[0] == 'MOV'):
+        mov(l[1], l[2].replace('"', '').encode())
+    elif (l[0] == 'REVERSE'):
+        reverse(l[1])
+    elif (l[0] == 'XOR'):
+        op_xor(l[1], l[2])
+
+print(contexto)
 ```
-> flag{}
+> flag{N1ce_Emul8tor!1}
